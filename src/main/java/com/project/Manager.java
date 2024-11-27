@@ -75,27 +75,23 @@ public class Manager {
             // Update type
             cart.setType(type);
             
-            // Clear old relationships
+            // Clear old relationships - només des del costat Cart
             if (cart.getItems() != null) {
-                for (Item oldItem : cart.getItems()) {
-                    oldItem.setCart(null);
-                }
                 cart.getItems().clear();
             }
             
-            // Set new relationships
+            // Set new relationships - només des del costat Cart
             if (items != null) {
                 for (Item item : items) {
                     Item managedItem = (Item) session.get(Item.class, item.getItemId());
                     if (managedItem != null) {
-                        managedItem.setCart(cart);
                         cart.getItems().add(managedItem);
                     }
                 }
             }
             
-            // Update cart
-            session.update(cart);
+            // Merge cart (versió moderna d'update)
+            session.merge(cart);
             tx.commit();
             
         } catch (HibernateException e) {
@@ -105,7 +101,7 @@ public class Manager {
             session.close();
         }
     }
-
+    
     public static Cart getCartWithItems(long cartId) {
         Cart cart;
         try (Session session = factory.openSession()) {

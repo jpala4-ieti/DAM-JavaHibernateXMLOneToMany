@@ -1,30 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE hibernate-configuration SYSTEM "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
- <session-factory>
-    <!-- Classe del controlador JDBC per la base de dades SQLite -->
-    <property name="hibernate.connection.driver_class">org.sqlite.JDBC</property>
-    
-    <!-- URL de connexió a la base de dades SQLite al directori data -->
-    <property name="hibernate.connection.url">jdbc:sqlite:./data/database.db</property>
-    
-    <!-- Dialecte per mantenir la compatibilitat amb SQLite -->
-    <property name="hibernate.dialect">org.hibernate.community.dialect.SQLiteDialect</property>
-    
-    <!-- Mostra les consultes SQL a la consola (true/false) -->
-    <property name="show_sql">false</property>
-    
-    <!-- Estratègia de generació automàtica de l'esquema -->
-    <!-- Opcions: -->
-    <!-- validate: Valida l'esquema sense fer canvis -->
-    <!-- update: Actualitza l'esquema si és necessari -->
-    <!-- create: Crea l'esquema, destruint les dades anteriors -->
-    <!-- create-drop: Crea l'esquema a l'inici i l'esborra al tancar -->
-    <!-- none: Desactiva la generació automàtica -->
-    <property name="hbm2ddl.auto">create</property>
-
-    <!-- Fitxers de mapatge XML per les entitats -->
-    <mapping resource="Cart.hbm.xml"/>
-    <mapping resource="Item.hbm.xml"/>
- </session-factory>
+    <session-factory>
+        <!-- List of XML mapping files -->
+        <mapping resource="Cart.hbm.xml"/>
+        <mapping resource="Item.hbm.xml"/>
+    </session-factory>
 </hibernate-configuration>
