@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+<hibernate-mapping>
+  <!-- Defineix el mapatge entre la classe Item i la taula Item de la BD -->
+  <class name="com.project.Item" table="Item">
+       <!-- Configuració de la clau primària -->
+       <id name="itemId" type="long" column="itemId">
+           <!-- Generador d'identitat: utilitzarà l'autoincrement de SQLite -->
+           <generator class="identity"/>
+       </id>
+
+       <!-- Mapatge d'una propietat simple: el nom de l'item -->
+       <property name="name" column="name" type="string"/>
+
+    <!-- Mapatge de la relació molts-a-un amb Cart -->
+    <!-- name: Nom de la propietat a la classe Java -->
+    <!-- class: Classe amb la que es relaciona -->
+    <!-- column: Columna a la BD que guarda la relació -->
+    <!-- not-null: Permet valors nuls (un item pot no estar en cap carret) -->
+    <!-- insert: No permet inserir nous valors des d'aquest costat de la relació -->
+    <!-- update: No permet actualitzar valors des d'aquest costat de la relació -->
+    <many-to-one 
+          name="cart" 
+          class="com.project.Cart" 
+          column="cartId" 
+          not-null="false"
+          insert="false"
+          update="false"/>
+       <!-- Les opcions insert="false" update="false" indiquen que:
+            - L'Item no pot modificar la relació amb Cart
+            - Només el Cart pot gestionar aquesta relació
+            - Això assegura que el Cart és el "propietari" de la relació
+            - Evita problemes de sincronització entre els dos costats -->
+  </class>
+</hibernate-mapping>
