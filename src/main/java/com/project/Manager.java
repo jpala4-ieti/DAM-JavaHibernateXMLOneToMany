@@ -106,6 +106,18 @@ public class Manager {
         }
     }
 
+    public static Cart getCartWithItems(long cartId) {
+        Cart cart;
+        try (Session session = factory.openSession()) {
+            Transaction tx = session.beginTransaction();
+            cart = session.get(Cart.class, cartId);
+            // Eagerly fetch the items collection
+            cart.getItems().size();
+            tx.commit();
+        }
+        return cart;
+    }
+
     public static Item addItem(String name){
         Session session = factory.openSession();
         Transaction tx = null;
