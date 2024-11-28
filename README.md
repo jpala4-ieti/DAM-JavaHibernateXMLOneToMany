@@ -8,6 +8,7 @@ Cal el 'Maven' per compilar el projecte
 ```bash
 mvn clean
 mvn compile
+mvn test
 ```
 
 Per executar el projecte a Windows cal

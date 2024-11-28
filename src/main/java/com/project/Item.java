@@ -42,4 +42,18 @@ public class Item implements Serializable {
     public String toString() {
         return this.getItemId() + ": " + this.getName();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        
+        Item item = (Item) o;
+        return itemId == item.itemId;
+    }
+    
+    @Override
+    public int hashCode() {
+        return Long.hashCode(itemId);
+    }    
 }

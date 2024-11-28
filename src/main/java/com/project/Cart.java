@@ -64,6 +64,20 @@ public class Cart implements Serializable {
             str.append(item.getName());
         }
         return this.getCartId() + ": " + this.getType() + ", Items: [" + str + "]";
-    }   
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        
+        Cart cart = (Cart) o;
+        return cartId == cart.cartId;
+    }
+    
+    @Override
+    public int hashCode() {
+        return Long.hashCode(cartId);
+    }    
   }
   
