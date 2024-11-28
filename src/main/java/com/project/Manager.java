@@ -110,26 +110,22 @@ public class Manager {
             
             cart.setType(type);
             
-            // Netegem les relacions antigues utilitzant el mètode helper
             if (cart.getItems() != null) {
                 for (Item oldItem : new HashSet<>(cart.getItems())) {
                     cart.removeItem(oldItem);
-                    session.merge(oldItem);  // Canviat update per merge
                 }
             }
             
-            // Establim les noves relacions utilitzant el mètode helper
             if (items != null) {
                 for (Item item : items) {
                     Item managedItem = session.get(Item.class, item.getItemId());
                     if (managedItem != null) {
                         cart.addItem(managedItem);
-                        session.merge(managedItem);  // Canviat update per merge
                     }
                 }
             }
             
-            session.merge(cart);  // Canviat update per merge
+            session.merge(cart);
             tx.commit();
             
         } catch (HibernateException e) {
