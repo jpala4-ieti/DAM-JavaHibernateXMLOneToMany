@@ -2,14 +2,13 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
 <hibernate-mapping>
    <class name = "com.project.Item" table = "Item">
-        <meta attribute = "class-description">
-            This class contains the Cart detail. 
-        </meta>
         <id name = "itemId" type = "long" column = "id">
             <generator class="native"/>
         </id>
+
         <property name = "name" column = "name" type = "string"/>
-        <many-to-one name="cart" class="com.project.Cart" fetch="select">
+
+        <many-to-one name="cart" class="com.project.Cart">
             <column name="cartId" not-null="false" />
         </many-to-one>   
     </class>

@@ -2,13 +2,23 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
 <hibernate-mapping>
    <class name = "com.project.Cart" table = "Cart">
-        <meta attribute = "class-description">
-            This class contains the Cart detail. 
-        </meta>
         <id name = "cartId" type = "long" column = "cartId">
             <generator class="native"/>
         </id>
+
         <property name = "type" column = "type" type = "string"/>
+
+        <!-- Cascade options can be one or a combination of the following: -->
+        <!-- cascade="all" : Applies all cascade types (save-update, delete, delete-orphan, merge, refresh, replicate, lock, evict) -->
+        <!-- cascade="none" : No operations are cascaded (default) -->
+        <!-- cascade="save-update" : Cascades save and update operations -->
+        <!-- cascade="delete" : Cascades delete operations -->
+        <!-- cascade="delete-orphan" : Deletes child entities when they're removed from the collection -->
+        <!-- cascade="merge" : Cascades merge operations when entities are merged -->
+        <!-- cascade="refresh" : Cascades refresh operations to reload entities from database -->
+        <!-- cascade="replicate" : Cascades replicate operations -->
+        <!-- cascade="lock" : Cascades lock operations -->
+        <!-- cascade="evict" : Cascades evict operations to detach entities from session -->
         <set name="items" cascade="all">
             <key column="cartId"/>
             <one-to-many class="com.project.Item"/>

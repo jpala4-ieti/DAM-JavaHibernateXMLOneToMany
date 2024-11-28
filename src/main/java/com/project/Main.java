@@ -53,13 +53,20 @@ public class Main {
        // UPDATE - Actualitzem el segon carret amb els seus items
        Manager.updateCart(refCart2.getCartId(), refCart2.getType(), itemsCard2);
 
+       // Creem un set d'items nous pel primer carret
+       Set<Item> itemsCard3 = new HashSet<Item>();
+       itemsCard3.add(refItem1);
+       itemsCard3.add(refItem2);
+
+       Manager.updateCart(refCart1.getCartId(), refCart1.getType(), itemsCard3);
+
        // READ - Mostrem l'estat després d'assignar items als carrets
        System.out.println("Punt 2: Després d'actualitzar carrets");
        System.out.println(Manager.collectionToString(Cart.class, Manager.listCollection(Cart.class, "")));
        System.out.println(Manager.collectionToString(Item.class, Manager.listCollection(Item.class, "")));
 
        // UPDATE - Actualitzem els noms dels carrets
-       Manager.updateCart(refCart1.getCartId(), "Cart 1 actualitzat", itemsCard1);
+       Manager.updateCart(refCart1.getCartId(), "Cart 1 actualitzat", itemsCard3);
        Manager.updateCart(refCart2.getCartId(), "Cart 2 actualitzat", itemsCard2);
 
        // UPDATE - Actualitzem els noms dels items
