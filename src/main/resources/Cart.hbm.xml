@@ -1,34 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version = "1.0" encoding = "utf-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
 <hibernate-mapping>
-   <!-- Mapatge de la classe Cart amb la taula Cart de la base de dades -->
-   <class name="com.project.Cart" table="Cart">
-       <!-- Definició de la clau primària -->
-       <id name="cartId" type="long" column="cartId">
-           <!-- Generador d'ID automàtic -->
-           <generator class="identity"/>
-       </id>
-
-       <!-- Propietat simple que guarda el tipus de carret -->
-       <property name="type" column="type" type="string"/>
-
-       <!-- Definició del conjunt d'items associats al carret -->
-       <!-- Opcions de cascade disponibles: -->
-       <!-- none: Cap operació es propaga (per defecte) -->
-       <!-- save-update: Propaga operacions de guardat i actualització -->
-       <!-- delete: Propaga operacions d'eliminació -->
-       <!-- delete-orphan: Elimina registres que ja no tenen referència -->
-       <!-- all: Propaga totes les operacions (save-update + delete) -->
-       <!-- all-delete-orphan: Combina all amb delete-orphan -->
-       <!-- refresh: Propaga l'actualització des de la base de dades -->
-       <!-- replicate: Propaga la replicació entre bases de dades -->
-       <!-- merge: Propaga les operacions de fusió d'entitats -->
-       <!-- persist: Propaga les operacions de persistència -->
-       <set name="items" cascade="save-update">
-           <!-- Clau forana que relaciona Item amb Cart -->
-           <key column="cartId"/>
-           <!-- Definició de la relació un-a-molts amb Item -->
-           <one-to-many class="com.project.Item"/>
-       </set>
+   <class name = "com.project.Cart" table = "Cart">
+        <meta attribute = "class-description">
+            This class contains the Cart detail. 
+        </meta>
+        <id name = "cartId" type = "long" column = "cartId">
+            <generator class="native"/>
+        </id>
+        <property name = "type" column = "type" type = "string"/>
+        <set name="items" cascade="all">
+            <key column="cartId"/>
+            <one-to-many class="com.project.Item"/>
+        </set>
    </class>
 </hibernate-mapping>
