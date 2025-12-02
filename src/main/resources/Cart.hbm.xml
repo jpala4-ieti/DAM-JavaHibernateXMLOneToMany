@@ -19,7 +19,7 @@
         <!-- cascade="replicate" : Cascades replicate operations -->
         <!-- cascade="lock" : Cascades lock operations -->
         <!-- cascade="evict" : Cascades evict operations to detach entities from session -->
-        <set name="items" cascade="all">
+        <set name="items" cascade="all" lazy="false" inverse="true">
             <key column="cartId"/>
             <one-to-many class="com.project.Item"/>
         </set>

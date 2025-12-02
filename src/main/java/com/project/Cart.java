@@ -7,7 +7,6 @@ import java.util.Set;
 public class Cart implements Serializable {
     
     private long cartId;
-
     private String type;  
 
     private Set<Item> items = new HashSet<>();
@@ -56,6 +55,7 @@ public class Cart implements Serializable {
   
     @Override
     public String toString() {
+        // CORRECCIÓ: Ús de StringBuilder per eficiència
         StringBuilder str = new StringBuilder();
         for (Item item : items) {
             if (str.length() > 0) {
@@ -63,7 +63,7 @@ public class Cart implements Serializable {
             }
             str.append(item.getName());
         }
-        return this.getCartId() + ": " + this.getType() + ", Items: [" + str + "]";
+        return this.getCartId() + ": " + this.getType() + ", Items: [" + str.toString() + "]";
     }
     
     @Override
@@ -79,5 +79,4 @@ public class Cart implements Serializable {
     public int hashCode() {
         return Long.hashCode(cartId);
     }    
-  }
-  
+}
