@@ -8,17 +8,82 @@
 
         <property name = "type" column = "type" type = "string"/>
 
-        <!-- Cascade options can be one or a combination of the following: -->
-        <!-- cascade="all" : Applies all cascade types (save-update, delete, delete-orphan, merge, refresh, replicate, lock, evict) -->
-        <!-- cascade="none" : No operations are cascaded (default) -->
-        <!-- cascade="save-update" : Cascades save and update operations -->
-        <!-- cascade="delete" : Cascades delete operations -->
-        <!-- cascade="delete-orphan" : Deletes child entities when they're removed from the collection -->
-        <!-- cascade="merge" : Cascades merge operations when entities are merged -->
-        <!-- cascade="refresh" : Cascades refresh operations to reload entities from database -->
-        <!-- cascade="replicate" : Cascades replicate operations -->
-        <!-- cascade="lock" : Cascades lock operations -->
-        <!-- cascade="evict" : Cascades evict operations to detach entities from session -->
+        <!-- ============================================================== -->
+        <!-- OPCIONS DE CASCADE ORDENADES DE MÉS A MENYS USADES            -->
+        <!-- ============================================================== -->
+
+        <!-- 1. cascade="all" -->
+        <!-- El més utilitzat en relacions pare-fill estretes -->
+        <!-- Cas real: Una Comanda amb les seves LíniesComanda. Quan guardes, -->
+        <!-- actualitzes o elimines la comanda, les línies segueixen el mateix destí -->
+
+        <!-- cascade="all" INCLOU: -->
+        <!-- ✓ save-update -->
+        <!-- ✓ delete -->
+        <!-- ✓ merge -->
+        <!-- ✓ refresh -->
+        <!-- ✓ replicate -->
+        <!-- ✓ lock -->
+        <!-- ✓ evict -->
+
+        <!-- cascade="all" NO INCLOU: -->
+        <!-- ✗ delete-orphan -->
+
+        <!-- ============================================================== -->
+        <!-- Per incloure delete-orphan, has d'usar:                        -->
+        <!-- cascade="all-delete-orphan"                                    -->
+        <!-- o bé:                                                          -->
+        <!-- cascade="all,delete-orphan"                                    -->
+        <!-- ============================================================== -->
+
+        <!-- 2. cascade="save-update" -->
+        <!-- Molt freqüent per persistir entitats relacionades automàticament -->
+        <!-- Cas real: Quan crees un Client nou amb una Adreça nova, guardar -->
+        <!-- el client també guarda l'adreça sense fer persist() explícit -->
+
+        <!-- 3. cascade="delete" -->
+        <!-- Comú per eliminar entitats dependents -->
+        <!-- Cas real: Eliminar un Article del blog elimina automàticament -->
+        <!-- tots els seus Comentaris associats -->
+
+        <!-- 4. cascade="delete-orphan" -->
+        <!-- Útil quan els fills no tenen sentit sense el pare -->
+        <!-- Cas real: Si treus un Telèfon de la llista de telèfons d'un Contacte, -->
+        <!-- aquest telèfon s'elimina de la BD (no queda "orfe") -->
+
+        <!-- 5. cascade="merge" -->
+        <!-- Important en aplicacions web amb entitats desconnectades -->
+        <!-- Cas real: Un formulari web modifica un Producte desconnectat; -->
+        <!-- en fer merge del Producte, també es fusionen les Categories modificades -->
+
+        <!-- 6. cascade="none" -->
+        <!-- Valor per defecte - quan vols control total manual -->
+        <!-- Cas real: Un Usuari té Comandes, però eliminar l'usuari NO ha -->
+        <!-- d'eliminar les comandes (es mantenen per auditoria/històric) -->
+
+        <!-- 7. cascade="refresh" -->
+        <!-- Poc freqüent, per sincronitzar amb canvis externs a la BD -->
+        <!-- Cas real: Un sistema bancari que necessita recarregar un Compte -->
+        <!-- i totes les seves Transaccions després d'una operació batch externa -->
+
+        <!-- 8. cascade="evict" -->
+        <!-- Ús avançat per gestió de memòria en processos batch -->
+        <!-- Cas real: Processar milers de Factures; en fer evict d'una Factura, -->
+        <!-- també es desconnecten les seves Línies per alliberar memòria -->
+
+        <!-- 9. cascade="lock" -->
+        <!-- Rar, per bloqueig pessimista en transaccions concurrents -->
+        <!-- Cas real: Bloquejar un Inventari i tots els seus Items -->
+        <!-- per evitar modificacions concurrents durant un recompte -->
+
+        <!-- 10. cascade="replicate" -->
+        <!-- Molt infreqüent, per migració/replicació entre bases de dades -->
+        <!-- Cas real: Replicar un Catàleg de productes amb totes les seves -->
+        <!-- Imatges i Descripcions d'una BD de producció a una de backup -->
+
+        <!-- ============================================================== -->
+        <!-- NOTA: Es poden combinar, ex: cascade="save-update,delete"      -->
+        <!-- ============================================================== -->
         <set name="items" cascade="all" lazy="false" inverse="true">
             <key column="cartId"/>
             <one-to-many class="com.project.Item"/>
